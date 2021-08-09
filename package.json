@@ -1,0 +1,14 @@
+{
+  "name": "neutron_node",
+  "version": "1.0.2",
+  "description": "Javascript terminal docking program of Neutron Launcher.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Lampese",
+  "license": "ISC",
+  "dependencies": {
+    "ws": "^8.0.0"
+  }
+}
