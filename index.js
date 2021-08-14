@@ -3,11 +3,11 @@ var Events={},Ws;
 exports.StartNeutron=function(callback){
     Ws=new WebSocket("ws://localhost:16384");
     Ws.on("open",()=>{
-        var Listener=function(Event,callback){
-            Events[Event]=callback;
+        var Listener=function(Event,ListenCallback){
+            Events[Event]=ListenCallback;
             Ws.send(`{"Event":"sub","EventName":"${Event}"}`);
         }
-        var CancelListener=function(Event){
+        var cancelListener=function(Event){
             if(Events[Event]!=undefined){
                 delete Events[Event];
                 Ws.send(`{"Event":"can","EventName":"${Event}"}`);
@@ -18,7 +18,7 @@ exports.StartNeutron=function(callback){
                 Ws.send(`{"Event":"Game","EventName":"ExecCommand","Command":"${Command}"}`);
             }
         }
-        callback(Listener,CancelListener,Game);
+        callback(Listener,cancelListener,Game);
     });
     Ws.on("message",(message)=>{
         let Message=JSON.parse(message.toString());
